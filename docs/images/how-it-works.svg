@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" role="img" aria-labelledby="t d">
+  <title id="t">How Watchu Pati works</title>
+  <desc id="d">Each browser is a static web app. Supabase relays play, pause and seek messages, keeps chat, profiles and the video list in Postgres, and stores avatars and subtitles. Video streams straight from your HLS host. Voice goes browser to browser over WebRTC.</desc>
+  <defs>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.6" fill="#d8d0bf"/></pattern>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#111"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; fill: #111; }
+      .t { font-size: 22px; font-weight: 800; }
+      .s { font-size: 15px; fill: #444; }
+      .card { stroke: #111; stroke-width: 3; }
+      .shadow { fill: #111; }
+      .line { stroke: #111; stroke-width: 3; fill: none; marker-end: url(#a); marker-start: url(#a); }
+      .one { stroke: #111; stroke-width: 3; fill: none; marker-end: url(#a); }
+      .dash { stroke: #111; stroke-width: 3; fill: none; stroke-dasharray: 8 7; marker-end: url(#a); marker-start: url(#a); }
+      .tag { font-size: 14px; font-weight: 700; }
+    </style>
+  </defs>
+  <rect width="1200" height="560" fill="#f5efe3"/>
+  <rect width="1200" height="560" fill="url(#dots)"/>
+
+  <!-- browsers -->
+  <g transform="translate(60 70)">
+    <rect class="shadow" x="6" y="6" width="250" height="150" rx="16"/>
+    <rect class="card" width="250" height="150" rx="16" fill="#ffe600"/>
+    <text class="t" x="24" y="44">💻 You</text>
+    <text class="s" x="24" y="76">player · chat · voice</text>
+    <text class="s" x="24" y="100">React + Vite static site</text>
+  </g>
+  <g transform="translate(60 340)">
+    <rect class="shadow" x="6" y="6" width="250" height="150" rx="16"/>
+    <rect class="card" width="250" height="150" rx="16" fill="#ff8fd0"/>
+    <text class="t" x="24" y="44">📱 Your friends</text>
+    <text class="s" x="24" y="76">same site, phone or</text>
+    <text class="s" x="24" y="100">the Android app</text>
+  </g>
+
+  <!-- supabase -->
+  <g transform="translate(470 110)">
+    <rect class="shadow" x="6" y="6" width="300" height="340" rx="16"/>
+    <rect class="card" width="300" height="340" rx="16" fill="#a8f0b8"/>
+    <text class="t" x="24" y="46">⚡ Supabase</text>
+    <g transform="translate(24 76)">
+      <rect width="252" height="70" rx="10" fill="#fff" stroke="#111" stroke-width="2"/>
+      <text class="tag" x="14" y="28">Realtime</text>
+      <text class="s" x="14" y="52">play / pause / seek, who's online</text>
+    </g>
+    <g transform="translate(24 160)">
+      <rect width="252" height="70" rx="10" fill="#fff" stroke="#111" stroke-width="2"/>
+      <text class="tag" x="14" y="28">Postgres</text>
+      <text class="s" x="14" y="52">videos, chat, profiles, ❤️</text>
+    </g>
+    <g transform="translate(24 244)">
+      <rect width="252" height="70" rx="10" fill="#fff" stroke="#111" stroke-width="2"/>
+      <text class="tag" x="14" y="28">Storage</text>
+      <text class="s" x="14" y="52">avatars, subtitle files</text>
+    </g>
+  </g>
+
+  <!-- video host -->
+  <g transform="translate(900 70)">
+    <rect class="shadow" x="6" y="6" width="250" height="150" rx="16"/>
+    <rect class="card" width="250" height="150" rx="16" fill="#9cb4ff"/>
+    <text class="t" x="24" y="44">🎬 Video host</text>
+    <text class="s" x="24" y="76">any HLS stream link</text>
+    <text class="s" x="24" y="100">(.m3u8, e.g. Bunny Stream)</text>
+  </g>
+  <g transform="translate(900 340)">
+    <rect class="shadow" x="6" y="6" width="250" height="150" rx="16"/>
+    <rect class="card" width="250" height="150" rx="16" fill="#cdb4ff"/>
+    <text class="t" x="24" y="44">🎧 Voice</text>
+    <text class="s" x="24" y="76">WebRTC, browser to browser;</text>
+    <text class="s" x="24" y="100">Supabase only introduces them</text>
+  </g>
+
+  <path class="line" d="M322 150 L 462 210"/>
+  <path class="line" d="M322 410 L 462 350"/>
+  <path class="one" d="M900 150 C 700 30, 450 30, 330 120"/>
+  <text class="tag" x="560" y="52">video streams straight to each player</text>
+  <path class="dash" d="M322 470 C 520 540, 700 540, 892 450"/>
+  <text class="tag" x="530" y="497">voice audio (peer to peer)</text>
+</svg>

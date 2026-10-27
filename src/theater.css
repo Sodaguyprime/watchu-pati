@@ -1,0 +1,259 @@
+/* ==========================================================================
+   Theater layout (Settings → Layout → Theater)
+   Dark cinema room. On phones the app becomes a single screen: slim top bar,
+   player pinned under it, then a Chat / Videos panel that fills whatever is
+   left — the page itself never scrolls, only the panel does.
+   Everything is scoped to .app.theater (or html[data-layout=theater] for the
+   page background), so Classic is untouched.
+   ========================================================================== */
+
+html[data-layout=theater] { color-scheme: dark; }
+html[data-layout=theater] body { background: #0b0b10; background-image: none; }
+
+.app.theater {
+  --ink: #f2f2f5;             /* text */
+  --paper: #16161d;           /* surfaces */
+  --raised: #20202a;          /* inputs, muted bubbles, chips */
+  --line: rgb(255 255 255 / .08);
+  --muted: #9d9dab;
+  --on-accent: #111;
+  --lilac: rgb(255 255 255 / .08); /* hover wash */
+  --green: #1d3b2f;
+  --border: 1px solid var(--line);
+  --shadow: none;
+  --shadow-sm: none;
+  --radius: 16px;
+  color: var(--ink);
+}
+
+/* ---- primitives ---- */
+.theater .btn { border: 1px solid var(--line); background: var(--raised); min-height: 40px; transition: transform .1s, background .15s; }
+.theater .btn:hover:not(:disabled) { background: #2a2a36; }
+.theater .btn:active:not(:disabled) { transform: scale(.97); box-shadow: none; }
+.theater .btn.primary { background: var(--yellow); color: var(--on-accent); border-color: transparent; }
+.theater .btn.primary:hover:not(:disabled) { background: #fff04d; }
+.theater .pill { border: 1px solid var(--line); background: var(--raised); }
+.theater .pill.active { background: var(--yellow); color: var(--on-accent); border-color: transparent; }
+.theater .icon-btn { border: 1px solid var(--line); background: var(--raised); color: var(--ink); width: 40px; height: 40px; }
+.theater .icon-btn:hover { background: #2a2a36; }
+.theater input, .theater textarea { background: var(--raised); border: 1px solid var(--line); color: var(--ink); }
+.theater input::placeholder { color: #6f6f7c; }
+.theater input:focus { outline: 2px solid var(--yellow); outline-offset: 0; border-color: transparent; }
+.theater .error { color: #ff6b7a; }
+.theater [data-slot=avatar] { border-color: rgb(255 255 255 / .14); }
+.theater [data-slot=button] { box-shadow: none; border-color: var(--line); }
+.theater [data-slot=button][class*="bg-[var(--yellow)]"] { color: var(--on-accent); border-color: transparent; }
+.theater [data-slot=button][class*="bg-[var(--paper)]"] { background: var(--raised); }
+.theater [data-slot=tabs-list] { border: 1px solid var(--line); box-shadow: none; background: var(--paper); }
+.theater [data-slot=tabs-trigger] { height: 36px; color: var(--muted); background: transparent; border: 0; }
+.theater [data-slot=tabs-trigger][data-state=active] { background: var(--raised); color: var(--ink); }
+
+/* ---- top bar: slim glass strip ---- */
+.theater .topbar {
+  gap: 8px; padding: 8px 10px 8px 14px; flex-wrap: nowrap;
+  background: rgb(18 18 24 / .82); backdrop-filter: blur(16px) saturate(160%);
+}
+.theater .logo { position: static; transform: none; font-size: 16px; gap: 8px; letter-spacing: -0.02em; white-space: nowrap; min-width: 0; }
+.theater .logo-mark { height: 30px; }
+.theater .topbar { min-height: 0; }
+.theater .status .dot { background: #34d399; box-shadow: 0 0 0 3px rgb(52 211 153 / .18); }
+.theater .online-list { background: #1c1c25; border: 1px solid var(--line); box-shadow: 0 12px 32px rgb(0 0 0 / .5); }
+.theater .online-list em { border: 0; color: var(--on-accent); }
+.theater .pill.me { min-height: 40px; }
+.theater .settings-btn.on { background: var(--yellow); color: var(--on-accent); }
+
+/* ---- settings panel ---- */
+.theater .settings-panel { background: #1a1a22; border: 1px solid var(--line); box-shadow: 0 20px 48px rgb(0 0 0 / .55); }
+.theater .layout-opt { background: var(--raised); border-color: var(--line); }
+.theater .layout-opt.on { background: var(--raised); box-shadow: 0 0 0 2px var(--yellow); }
+.theater .layout-opt.on .layout-hint { color: var(--muted); }
+.theater .switch-row { border: 1px solid var(--line); background: var(--raised); }
+.theater .switch { border: 0; background: #3a3a46; }
+.theater .switch::after { top: 4px; left: 4px; border: 0; background: #fff; }
+.theater .switch:checked { background: #34d399; }
+.theater .sheet-grip { background: rgb(255 255 255 / .22); }
+
+/* ---- voice ---- */
+.theater .voicebar { padding: 6px 8px 6px 12px; }
+.theater .voicebar.in { background: linear-gradient(90deg, rgb(52 211 153 / .14), var(--paper) 60%); border-color: rgb(52 211 153 / .3); }
+.theater .voice-count.live .dot { background: #34d399; }
+.theater .voice-members li.speaking { background: rgb(52 211 153 / .12); border-color: #34d399; }
+.theater .voice-members li.speaking [data-slot=avatar] { box-shadow: 0 0 0 3px #34d399; }
+.theater .voice-badge { background: #fff; color: #111; border-color: var(--paper); }
+.theater .mic-meter { background: var(--raised); border: 1px solid var(--line); }
+.theater .mic-bars i { background: rgb(255 255 255 / .15); }
+.theater .voice-leave { background: #3b1620 !important; color: #ff8fa0 !important; }
+
+/* ---- stage ---- */
+.theater .player { border: 0; box-shadow: 0 24px 60px -20px rgb(0 0 0 / .8); }
+.theater .now h2 { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+.theater .empty-stage {
+  display: grid; place-items: center; align-content: center; gap: 6px; text-align: center;
+  padding: 20px; aspect-ratio: 16/9; border-radius: var(--radius);
+  background: radial-gradient(120% 90% at 50% 0%, #22222d 0%, #111117 70%); border: 1px solid var(--line);
+}
+.theater .empty-stage .mascot { width: min(120px, 26vw); margin: 0; filter: drop-shadow(0 8px 20px rgb(0 0 0 / .5)); }
+.theater .empty-title { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; }
+.theater .empty-stage .muted { font-size: 13px; max-width: 30ch; }
+.theater .empty-stage .btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; }
+
+/* player controls: dark glass deck instead of the paper card */
+.theater .pc-deck { background: rgb(12 12 16 / .62); backdrop-filter: blur(14px) saturate(150%); border: 1px solid rgb(255 255 255 / .1); }
+.theater .pc-btn { border: 0; background: rgb(255 255 255 / .1); box-shadow: none; }
+.theater .pc-btn:hover { background: rgb(255 255 255 / .18); }
+.theater .pc-btn.is-on, .theater .pc-btn[data-open] { background: var(--yellow); color: var(--on-accent); }
+.theater .pc-play { border: 0; color: var(--on-accent); box-shadow: none; }
+.theater .pc-play:hover { box-shadow: none; transform: scale(1.05); }
+.theater .pc-btn:active, .theater .pc-play:active { transform: scale(.94); box-shadow: none; }
+.theater .pc-track { border: 0; background: rgb(255 255 255 / .2); height: 6px; }
+.theater .pc-time[data-active] .pc-track { height: 8px; }
+.theater .pc-progress { background: rgb(255 255 255 / .22); }
+.theater .pc-fill { border-right: 0; }
+.theater .pc-thumb { width: 14px; height: 14px; border: 0; background: #fff; box-shadow: 0 1px 4px rgb(0 0 0 / .5); }
+.theater .pc-preview-time { background: #fff; color: #111; box-shadow: none; }
+.theater .pc-vol-track { border: 0; background: rgb(255 255 255 / .2); height: 6px; }
+.theater .pc-vol-fill { background: #fff; border-right: 0; }
+.theater .pc-vol-thumb { border: 0; background: #fff; width: 12px; height: 12px; }
+.theater .pc-clock, .theater .pc-status { border: 0; background: transparent; color: #fff; }
+.theater .pc-status-playing .dot { background: #34d399; }
+.theater .pc-status-waiting { color: var(--yellow); }
+.theater .pc-status-blocked { color: #ff8fa0; }
+.theater .pc-tip, .theater .pc-menu-items { background: #1c1c25; border: 1px solid var(--line); box-shadow: 0 10px 30px rgb(0 0 0 / .5); }
+.theater .pc-captions [data-part=cue] { background: rgb(0 0 0 / .72); color: #fff; border: 0; box-shadow: none; }
+.theater .pc-sticker { color: var(--on-accent); border: 0; box-shadow: 0 6px 18px rgb(0 0 0 / .4); }
+.theater .pc-flash { color: var(--on-accent); border: 0; box-shadow: 0 10px 30px rgb(0 0 0 / .4); }
+.theater .pc-buffer .pill { color: var(--on-accent); border: 0; }
+.theater .pc-buffer img { filter: drop-shadow(0 6px 14px rgb(0 0 0 / .5)); }
+
+/* ---- chat ---- */
+.theater .chat-head { background: transparent; border-bottom: 1px solid var(--line); padding: 6px 8px 6px 14px; }
+.theater .chat-head strong { font-size: 14px; }
+.theater .chat-head .btn.small { min-height: 32px; font-size: 12px; }
+.theater [data-slot=bubble-content] { border-color: transparent; box-shadow: none; }
+.theater [data-slot=bubble-content][class*="bg-[var(--yellow)]"] { color: var(--on-accent); }
+.theater [data-slot=bubble-content][class*="bg-[var(--paper)]"] { background: var(--raised); }
+.theater [data-slot=bubble-reactions] { border: 1px solid var(--line); box-shadow: none; background: var(--raised); }
+.theater [data-slot=bubble-reactions].hearted { background: #4a1d2a; }
+.theater .quote { background: rgb(0 0 0 / .12); border-left-color: currentColor; }
+.theater [data-slot=bubble-content][class*="bg-[var(--paper)]"] .quote { background: rgb(255 255 255 / .06); }
+.theater [data-slot=bubble-content][class*="bg-[var(--paper)]"] .quote-who { filter: brightness(2.1) saturate(1.3); }
+.theater .reply-bar .quote { background: var(--raised); }
+.theater .reply-bar .quote-who { filter: brightness(2.1) saturate(1.3); }
+.theater .swipe-hint { border: 0; background: var(--yellow); color: var(--on-accent); }
+.theater .chat-input { background: var(--paper); border-top: 1px solid var(--line); }
+.theater .chat-input input { border-radius: 999px; padding: 10px 16px; min-height: 44px; font-size: 16px; /* 16px: no iOS zoom on focus */ }
+.theater .send-btn { border: 0; box-shadow: none; width: 44px; height: 44px; color: var(--on-accent); }
+.theater .send-btn:active:not(:disabled) { transform: scale(.92); box-shadow: none; }
+.theater .send-btn:disabled { background: var(--raised); color: #5d5d6a; }
+.theater .sticker-toggle { width: 44px; height: 44px; }
+.theater .sticker-toggle.on { color: var(--on-accent); }
+.theater .sticker-picker { background: #1c1c25; border: 1px solid var(--line); box-shadow: 0 -10px 30px rgb(0 0 0 / .45); }
+.theater .sticker-opt:hover, .theater .sticker-opt:focus-visible { background: var(--raised); border-color: var(--yellow); }
+.theater .msg.flash { animation-name: msg-flash-dark; }
+@keyframes msg-flash-dark { 0%, 30% { background: rgb(255 230 0 / .14); } 100% { background: transparent; } }
+.theater .fab { color: var(--on-accent); border: 0; }
+
+/* ---- library ---- */
+.theater .video-card { background: var(--paper); border: 1px solid var(--line); }
+.theater .video-card:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -12px rgb(0 0 0 / .7); }
+.theater .video-card.active { outline: 2px solid var(--yellow); outline-offset: -2px; }
+.theater .thumb { background: #22222d; border-bottom: 0; }
+.theater .thumb-empty { color: var(--muted); }
+.theater .badge { border: 0; color: var(--on-accent); }
+.theater .video-meta h3 { font-size: 14px; font-weight: 600; line-height: 1.3; }
+.theater .add-preview { border: 1px solid var(--line); background: #22222d; }
+.theater .add-form { background: var(--paper); }
+
+/* ---- modal (name prompt) ---- */
+.theater .modal { background: #1a1a22; }
+.theater .pfp-badge { border-color: var(--paper); color: var(--on-accent); }
+
+/* ==========================================================================
+   Phones & narrow windows (portrait): one screen, panel fills the rest.
+   The `not (...)` leaves landscape phones to the drawer layout in index.css.
+   ========================================================================== */
+@media (max-width: 899px) and (not ((orientation: landscape) and (max-height: 500px) and (pointer: coarse))) {
+  .app.theater {
+    display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden;
+    max-width: none; padding: 0;
+  }
+  .app.theater .layout { display: contents; }
+
+  .theater .topbar { order: 1; flex: none; margin: 0; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding-top: calc(8px + env(safe-area-inset-top)); }
+  .theater .me-name { display: none; }
+  .theater .logo span { overflow: hidden; text-overflow: ellipsis; }
+  .theater .pill.me { padding: 4px; width: 40px; justify-content: center; }
+  .theater .online .pill { min-height: 40px; }
+  .theater .stage { order: 2; flex: none; gap: 0; }
+  .theater .voicebar { order: 3; flex: none; margin: 0 12px 8px; }
+  .theater .mobile-tabs { order: 4; flex: none; margin: 0 12px 8px; }
+  .theater .chat, .theater .videos-panel { order: 5; }
+
+  @media (max-width: 420px) { .theater .logo span { display: none; } }
+
+  /* player: edge to edge, the room's centrepiece */
+  .theater .player { border-radius: 0; box-shadow: none; }
+  .theater .now { padding: 10px 14px 10px; }
+  .theater .now .pill { font-size: 11px; padding: 3px 9px; }
+  .theater .empty-stage { border-radius: 0; border: 0; border-bottom: 1px solid var(--line); gap: 4px; padding: 12px 20px; }
+  .theater .empty-stage .mascot { width: 72px; }
+  .theater .empty-stage .muted { display: none; }
+
+  /* voice: one line — avatars scroll sideways instead of wrapping */
+  .theater .voicebar { flex-wrap: nowrap; gap: 8px; }
+  .theater .voice-head strong { display: none; }
+  .theater .voice-members { order: 0; flex: 1 1 auto; flex-basis: auto; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .theater .voice-members::-webkit-scrollbar { display: none; }
+  .theater .voice-members .voice-name { display: none; }
+  .theater .voice-members li { padding: 2px; }
+  .theater .voice-empty { white-space: nowrap; font-size: 12px; }
+  .theater .voicebar.in { flex-wrap: wrap; }
+  .theater .voicebar.in .voice-members { flex: 1 1 0; }
+
+  /* the panel: chat or videos, fills the rest of the screen */
+  .theater .chat {
+    flex: 1 1 auto; min-height: 0; height: auto;
+    margin: 0; border: 0; border-top: 1px solid var(--line); border-radius: 0;
+  }
+  .theater .chat-input { border-radius: 0; padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+  .theater .chat-list { overscroll-behavior: contain; }
+  .theater .videos-panel {
+    flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+    display: grid; align-content: start; gap: 14px;
+    padding: 4px 12px calc(20px + env(safe-area-inset-bottom));
+  }
+  .app.theater.tab-chat .videos-panel { display: none; }
+  .theater .library { margin: 0; }
+
+  /* videos as a dense list: thumb left, title right */
+  .theater .grid { grid-template-columns: 1fr; gap: 10px; }
+  .theater .video-card { display: grid; grid-template-columns: 132px 1fr; align-items: center; border-radius: 14px; }
+  .theater .video-card:hover { transform: none; box-shadow: none; }
+  .theater .video-card .thumb { height: 100%; }
+  .theater .video-card .badge { left: 6px; top: 6px; font-size: 10px; padding: 2px 7px; }
+  .theater .video-meta { padding: 8px 8px 8px 12px; align-items: flex-start; }
+  .theater .video-meta h3 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .theater .video-meta .icon-btn { width: 36px; height: 36px; flex: none; }
+  .theater .subs { padding: 10px 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); }
+}
+
+/* ==========================================================================
+   Wide screens: cinema — big player, chat column, library as a shelf below
+   ========================================================================== */
+@media (min-width: 900px) and (not ((orientation: landscape) and (max-height: 500px) and (pointer: coarse))) {
+  .app.theater { max-width: 1560px; padding-top: 0; }
+  .theater .topbar {
+    position: sticky; top: 0; z-index: 40; border: 0; border-bottom: 1px solid var(--line);
+    border-radius: 0 0 var(--radius) var(--radius); margin: 0 0 var(--gap);
+  }
+  .theater .logo-mark { height: 36px; }
+  .theater .layout { grid-template-columns: minmax(0, 1fr) 380px; }
+  .theater .stage { align-content: start; }
+  .theater .videos-panel { display: grid; gap: var(--gap); margin-top: 22px; }
+  .theater .videos-panel .library { margin: 0; }
+  .theater .subs { padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .theater .topbar, .theater .pc-deck { backdrop-filter: none; background: #16161d; }
+}

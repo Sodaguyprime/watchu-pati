@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" width="1200" height="470" role="img" aria-labelledby="t d">
+  <title id="t">Pressing play, in sync</title>
+  <desc id="d">When anyone presses play, everyone pauses and buffers that moment, reports ready, and then all start together at a shared time slightly in the future. While playing, the host sends a heartbeat every two seconds and the others correct any drift.</desc>
+  <defs>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.6" fill="#d8d0bf"/></pattern>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#111"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; fill: #111; }
+      .n { font-size: 34px; font-weight: 900; }
+      .t { font-size: 20px; font-weight: 800; }
+      .s { font-size: 15px; fill: #444; }
+      .flow { stroke: #111; stroke-width: 3; fill: none; marker-end: url(#a); }
+    </style>
+  </defs>
+  <rect width="1200" height="470" fill="#f5efe3"/>
+  <rect width="1200" height="470" fill="url(#dots)"/>
+  <text x="60" y="58" font-size="26" font-weight="900">Pressing ▶ for everyone at once</text>
+
+  <g transform="translate(60 100)">
+    <rect x="6" y="6" width="240" height="200" rx="16" fill="#111"/>
+    <rect width="240" height="200" rx="16" fill="#ffe600" stroke="#111" stroke-width="3"/>
+    <text class="n" x="22" y="52">1</text>
+    <text class="t" x="22" y="96">Someone hits play</text>
+    <text class="s" x="22" y="126">"let's all play from</text>
+    <text class="s" x="22" y="148">12:04" goes to the room</text>
+  </g>
+  <g transform="translate(340 100)">
+    <rect x="6" y="6" width="240" height="200" rx="16" fill="#111"/>
+    <rect width="240" height="200" rx="16" fill="#ff8fd0" stroke="#111" stroke-width="3"/>
+    <text class="n" x="22" y="52">2</text>
+    <text class="t" x="22" y="96">Everyone buffers</text>
+    <text class="s" x="22" y="126">each player jumps to 12:04,</text>
+    <text class="s" x="22" y="148">loads it, and says "ready"</text>
+  </g>
+  <g transform="translate(620 100)">
+    <rect x="6" y="6" width="240" height="200" rx="16" fill="#111"/>
+    <rect width="240" height="200" rx="16" fill="#a8f0b8" stroke="#111" stroke-width="3"/>
+    <text class="n" x="22" y="52">3</text>
+    <text class="t" x="22" y="96">Go together</text>
+    <text class="s" x="22" y="126">"start at exactly 20:00:00.4"</text>
+    <text class="s" x="22" y="148">so slow phones aren't behind</text>
+  </g>
+  <g transform="translate(900 100)">
+    <rect x="6" y="6" width="240" height="200" rx="16" fill="#111"/>
+    <rect width="240" height="200" rx="16" fill="#9cb4ff" stroke="#111" stroke-width="3"/>
+    <text class="n" x="22" y="52">4</text>
+    <text class="t" x="22" y="96">Stay together</text>
+    <text class="s" x="22" y="126">the host ticks every 2 s;</text>
+    <text class="s" x="22" y="148">anyone who drifts catches up</text>
+  </g>
+
+  <path class="flow" d="M306 200 H 334"/>
+  <path class="flow" d="M586 200 H 614"/>
+  <path class="flow" d="M866 200 H 894"/>
+
+  <text x="60" y="370" font-size="17" fill="#444">Pause and seek go to everyone instantly. If a phone refuses to autoplay, it shows a "tap to join" button and catches up.</text>
+  <text x="60" y="400" font-size="17" fill="#444">The first person in the room is the host (the clock). If they leave, the next person takes over.</text>
+</svg>
